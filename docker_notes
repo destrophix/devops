@@ -1,0 +1,118 @@
+What is Docker?
+A platform for building, running and shipping applications.
+
+Reson for app working on my system but not on other's system.
+1. One or more files missing.
+2. Software version mismatch.
+3. Different configuration settings. (different env variables)
+
+Container : An isolated environment for running an application.
+
+Virtual Machine
+
+Hypersvisors
+1. VirtualBox
+2. VMware
+3. Hyper-V (windows only)
+
+Problems with VM
+1. Each VM needs a full blown OS. That means every VM has a separate OS that needs to be installed and patched.
+2.Slow to start
+3. Resource Intensive.
+
+Containers
+1. Allow running multiple apps in isolation
+2. Are lightweight
+3. Use OS of the host
+4. Start quickly
+5. Need less hardware resources
+
+Development Workflow
+We dockerize an app by adding a dockerfile to it.
+A dockerfile contains the steps to package our app into an image.
+
+A docker image consists of:
+1. A cut down OS
+2. A runtime environment (eg Node)
+3. Application files
+4. Third-party libraries
+5. Environment variables
+
+A container has its own file system provided by image.
+
+A base image is staring image where already some files are present and we add some more to it.
+
+docker commands
+docker run [image] -> to run the image. if the image isn't present if downloads it from docker hub.
+
+docker pull -> to download the image from docker hub. It doesn't run the image as docker run does.
+
+docker ps -> lists all running containers.
+docker ps -a -> lists all the containers that are running or ran in the past.
+
+docker images -> lists all docker images available offline.
+
+docker build -> build the image from docker file.
+
+docker exec -> execute command a on docker container.
+
+docker attach [container id] -> to attach to a detached container.
+
+-i flag in docker run is attach standard IN to container.
+-t flag in docker run is used to give pseudo terminal of the container.
+-e flag in docker run to set the env variable.
+
+Networks
+
+
+File system created on host by docker
+| /var/lib/docker
+|-- aufs
+|-- containers
+|-- image
+|-- volumes
+
+COPY on WRITE
+It is a scenario where you are modifying a file that is part of the image (image layer). But the image layer is read only. So the docker creates a copy of this file in the container layer which means you are using a different version of the file inside the container. This ensures that the file in the image layer is read only. We want this because the image may be used to run multiple containers and we dont't want to change other containers by changing this file.
+
+Data Persistence
+
+1. Volume mounting
+Volume mounting is when we mount a volume which is inside
+/var/lib/docker/volumes to a db, etc.
+
+Volumes
+We use volumes for data persistence i.e. when we delete the container the data of the container is not lost.
+
+docker volume create data_volume   -> this command creates a new directory named data_volume inside the /var/lib/docker/volumes directory.
+
+docker run -v data_volume:/var/lib/mysql mysql -> this command is attaching the data_volume that we created previously to the mysql database of the container.
+
+2. Bind Mounting
+Bind mounting is when we mount any directory on the host to a db, etc.
+
+eg. docker run -v /data/mysql:/var/lib/mysql mysql
+
+New syntax for mounting
+docker run --mount type=bind, source=/data/mysql, target=/var/lib/mysql mysql
+
+Storage drivers
+It is responsible for implementing the layered architecture like different layers, copy on write etc.
+
+Some of them are :
+1. AUFS - ubuntu
+2. ZFS
+3. BTRFS
+4. Device Mapper
+5. Overlay and Overlay2
+
+
+Docker Engine
+It consists of following components :
+1. Docker CLI
+2. REST API
+3. Docker Daemon
+
+ 
+
+

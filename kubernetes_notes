@@ -1,0 +1,22 @@
+What is kubernetes ?
+It is container orchestration system.
+
+What is takes care of ?
+K8S takes care of 
+1. Automatic deployment of the containerized applications across different servers.
+2. Distribution of the load across multiple servers.
+3. Auto-scaling of the deployed applications.
+4. Monitoring and health check of the containers.
+5. Replacement of the failed containers.
+
+Supported container runtime are docker, CRI-O and containerd.
+
+POD is the smallest unit in the kubernetes world.
+containers are the smallest in the docker world.
+
+Containers are created inside pod.
+Generally single container per pos is the most common use case.
+
+A single pod cannot be stored across multple server.
+one pod one server.
+
